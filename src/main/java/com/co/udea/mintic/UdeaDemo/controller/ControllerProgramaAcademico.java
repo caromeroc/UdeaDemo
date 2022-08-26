@@ -117,6 +117,15 @@ public class ControllerProgramaAcademico {
        return new ResponseEntity<String >(retorno, HttpStatus.OK);
 
     }
+    @DeleteMapping (path = "/udea/mintic/borrarPersona/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity <Boolean> borrarPersona (@PathVariable int id){
 
+        Persona p = serviceProgramaAcademico.buscarPersona(id);
+
+        Boolean salida = serviceProgramaAcademico.borrarPersona(p);
+
+       return new ResponseEntity<Boolean>(salida, HttpStatus.OK);
+
+    }
 
 }
