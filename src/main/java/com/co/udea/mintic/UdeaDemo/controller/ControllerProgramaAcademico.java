@@ -109,5 +109,14 @@ public class ControllerProgramaAcademico {
 
     }
 
+    @PatchMapping (path = "/udea/mintic/actualizarPP", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity <String> actualizarPersonaParcial (){
+
+       String retorno = "Actualizacion Parcial de dominio Persona";
+       System.out.println("Ok, metodo patch");
+       return new ResponseEntity<String >(retorno, HttpStatus.OK);
+
+    }
+
 
 }
