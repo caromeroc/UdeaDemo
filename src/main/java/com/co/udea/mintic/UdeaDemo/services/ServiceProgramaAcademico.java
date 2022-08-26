@@ -113,6 +113,14 @@ public class ServiceProgramaAcademico {
 
     }
 
+    public Boolean borrarPersona(Persona persona){
+
+        listaP.remove(persona);
+
+        return Boolean.TRUE;
+
+    }
+
 
 
 }
