@@ -1,6 +1,5 @@
 package com.co.udea.mintic.UdeaDemo.controller;
 
-
 import com.co.udea.mintic.UdeaDemo.domain.Persona;
 import com.co.udea.mintic.UdeaDemo.services.ServiceProgramaAcademico;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 
 
@@ -67,9 +64,6 @@ public class ControllerProgramaAcademico {
 
            return new ResponseEntity("Error de Ejecuión ", HttpStatus.INTERNAL_SERVER_ERROR);
        }
-
-
-
     }
 
 
@@ -87,7 +81,7 @@ public class ControllerProgramaAcademico {
     @PostMapping (path = "/udea/mintic/crearPersona/{doc}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public  ResponseEntity <Persona> crearPersonaCondicional (@RequestBody Persona persona, @PathVariable String doc){
 
-       //TODO --> Busar persona
+       //TODO --> Buscar persona antes de insertar, validar si existe ya
 
 
        switch (doc){
@@ -103,5 +97,17 @@ public class ControllerProgramaAcademico {
        }
         return new ResponseEntity<Persona>(persona, HttpStatus.OK);
     }
+
+    @PutMapping ( path = "/udea/mintic/actualizarPersona", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity <Persona> actualizarPersona(@RequestParam int id, @RequestParam String nombreModificado){
+
+        Persona p = serviceProgramaAcademico.buscarPersona(id);
+        p.setNombre(nombreModificado);
+    System.out.println("Metod PUT");
+
+       return new ResponseEntity<Persona>(p, HttpStatus.OK);
+
+    }
+
 
 }
