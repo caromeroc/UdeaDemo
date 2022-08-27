@@ -3,13 +3,12 @@ package com.co.udea.mintic.UdeaDemo.services;
 import com.co.udea.mintic.UdeaDemo.domain.Persona;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
 @Service
-public class ServiceProgramaAcademico {
+public class ServicePersona {
 
     @Getter
     @Setter
@@ -17,7 +16,7 @@ public class ServiceProgramaAcademico {
 
     ArrayList <Persona> listaP;
 
-    public ServiceProgramaAcademico(ArrayList<Persona> listaP) {
+    public ServicePersona(ArrayList<Persona> listaP) {
         this.listaP = listaP;
     }
 
