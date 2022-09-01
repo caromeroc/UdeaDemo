@@ -20,7 +20,8 @@ public class ControllerPersona {
 
 
     @Autowired
-    ServicePersona serviceProgramaAcademico;
+    ServicePersona servicePersona;
+
 
     @Autowired
     UtilidadesComunes utilidadesComunes;
@@ -35,7 +36,7 @@ public class ControllerPersona {
        alumno.setApellido("Romero22");
        alumno.setEdad(34);
 
-       String salida = serviceProgramaAcademico.inscribirAlumno(alumno);
+       String salida = servicePersona.inscribirAlumno(alumno);
 
        return new ResponseEntity<String>(salida, HttpStatus.NOT_FOUND);
 
@@ -47,7 +48,8 @@ public class ControllerPersona {
 
         ArrayList<String> salida = new ArrayList<>();
 
-        salida = serviceProgramaAcademico.doWhile(7);
+
+        salida = servicePersona.doWhile(7);
 
         return salida;
 
@@ -56,12 +58,12 @@ public class ControllerPersona {
     @GetMapping (path = "/udea/mintic/listaPersonas", produces = MediaType.APPLICATION_JSON_VALUE)
     public ArrayList<Persona> listaPersonas (){
         utilidadesComunes.mensaje();
-        return serviceProgramaAcademico.listar();
+        return servicePersona.listar();
    }
 
     @GetMapping (path = "/udea/mintic/buscarPersona/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Persona> buscarPersona (@PathVariable int id){
-        Persona p = serviceProgramaAcademico.buscarPersona(id);
+        Persona p = servicePersona.buscarPersona(id);
         if ( p != null){
             return new ResponseEntity<Persona>(p, HttpStatus.OK);
         }else{
@@ -73,7 +75,7 @@ public class ControllerPersona {
     @PostMapping (path = "/udea/mintic/crearPersona", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public  ResponseEntity <Persona> crearPersona (@RequestBody Persona persona){
 
-       boolean salida = serviceProgramaAcademico.addPersona(persona);
+       boolean salida = servicePersona.addPersona(persona);
 
 
        if(salida == true){
@@ -97,10 +99,10 @@ public class ControllerPersona {
 
        switch (doc){
            case "CC":
-              serviceProgramaAcademico.addPersonaCC(persona, doc);
+              servicePersona.addPersonaCC(persona, doc);
                break;
            case "TI":
-               serviceProgramaAcademico.addPersonaTI(persona, doc);
+               servicePersona.addPersonaTI(persona, doc);
                break;
            default:
                return new ResponseEntity("Error de Ejecución ", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -112,7 +114,7 @@ public class ControllerPersona {
     @PutMapping ( path = "/udea/mintic/actualizarPersona", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity <Persona> actualizarPersona(@RequestParam int id, @RequestParam String nombreModificado){
 
-        Persona p = serviceProgramaAcademico.buscarPersona(id);
+        Persona p = servicePersona.buscarPersona(id);
         p.setNombre(nombreModificado);
     System.out.println("Metod PUT");
 
@@ -131,9 +133,9 @@ public class ControllerPersona {
     @DeleteMapping (path = "/udea/mintic/borrarPersona/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity <Boolean> borrarPersona (@PathVariable int id){
 
-        Persona p = serviceProgramaAcademico.buscarPersona(id);
+        Persona p = servicePersona.buscarPersona(id);
 
-        Boolean salida = serviceProgramaAcademico.borrarPersona(p);
+        Boolean salida = servicePersona.borrarPersona(p);
 
        return new ResponseEntity<Boolean>(salida, HttpStatus.OK);
 
