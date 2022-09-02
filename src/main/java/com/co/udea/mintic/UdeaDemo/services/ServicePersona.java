@@ -1,11 +1,15 @@
 package com.co.udea.mintic.UdeaDemo.services;
 
 import com.co.udea.mintic.UdeaDemo.domain.Persona;
+import com.co.udea.mintic.UdeaDemo.repository.EntityPersona;
+import com.co.udea.mintic.UdeaDemo.repository.RepositoryPersona;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ServicePersona {
@@ -13,6 +17,9 @@ public class ServicePersona {
     @Getter
     @Setter
     private String nombrePrograma;
+
+    @Autowired
+    RepositoryPersona repositoryPersona;
 
     ArrayList <Persona> listaP;
 
@@ -118,6 +125,64 @@ public class ServicePersona {
 
         return Boolean.TRUE;
 
+    }
+
+    public List <EntityPersona>  listarTodosJPA (){
+
+        List<EntityPersona> list = repositoryPersona.findAll();
+
+        return  list;
+
+    }
+
+    public Boolean insertarPersonaJPA(EntityPersona persona){
+        try {
+            repositoryPersona.save(persona);
+        }catch (Exception e){
+
+            return Boolean.FALSE;
+        }
+        return Boolean.TRUE;
+    }
+
+
+    public Boolean actualizarTodoJPA (EntityPersona persona){
+
+        try {
+            repositoryPersona.save(persona);
+        }catch (Exception e){
+
+            return Boolean.FALSE;
+        }
+        return Boolean.TRUE;
+
+
+    }
+
+
+    public void actualizarParcialJPA (EntityPersona persona){
+
+       EntityPersona perTemp =  repositoryPersona.findById(persona.getId()).orElse(null);
+
+       if (persona.getNombre() != null){
+           perTemp.setNombre(persona.getNombre());
+       }else if (persona.getApellido() != null){
+           perTemp.setApellido(persona.getApellido());
+       }else if (persona.getEdad() != null){
+           perTemp.setEdad(persona.getEdad());
+       }else if (persona.getDoc() != null){
+           perTemp.setDoc(persona.getDoc());
+       }else if (persona.getPassword() != null){
+           perTemp.setPassword(persona.getPassword());
+       }
+
+        repositoryPersona.save(perTemp);
+
+    }
+
+    public void deletePersonaById (Long id){
+
+        repositoryPersona.deleteById(id);
     }
 
 

@@ -1,6 +1,7 @@
 package com.co.udea.mintic.UdeaDemo.controller;
 
 import com.co.udea.mintic.UdeaDemo.domain.Persona;
+import com.co.udea.mintic.UdeaDemo.repository.EntityPersona;
 import com.co.udea.mintic.UdeaDemo.services.ServicePersona;
 import com.co.udea.mintic.UdeaDemo.util.UtilidadesComunes;
 import io.swagger.annotations.Api;
@@ -139,6 +140,38 @@ public class ControllerPersona {
 
        return new ResponseEntity<Boolean>(salida, HttpStatus.OK);
 
+    }
+
+    @GetMapping (path = "/udea/mintic/listarTodosJPA", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity <Object> listarTodo (){
+
+       return  new ResponseEntity<Object>(servicePersona.listarTodosJPA(), HttpStatus.OK);
+
+    }
+
+    @PostMapping (path = "/udea/mintic/insertarPersonaJPA", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity <Boolean> insertarPersona (@RequestBody EntityPersona persona){
+
+      return new ResponseEntity<Boolean>(servicePersona.insertarPersonaJPA(persona), HttpStatus.OK)  ;
+
+    }
+
+    @PutMapping (path = "/udea/mintic/actualizarTodoJPA", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Boolean> actualizarTodoJPA (@RequestBody EntityPersona persona){
+
+        return new ResponseEntity<Boolean> (servicePersona.actualizarTodoJPA(persona), HttpStatus.OK);
+
+    }
+
+    @PatchMapping (path = "/udea/mintic/actualizarParcialJPA", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void insertarParcialJPA (@RequestBody EntityPersona persona){
+
+        servicePersona.actualizarParcialJPA(persona);
+    }
+
+    @DeleteMapping("/udea/mintic/borrarPersonaJPA/{id}")
+    public void borrarPersonaJPA(@PathVariable("id") Long id) {
+        servicePersona.deletePersonaById(id);
     }
 
 }
