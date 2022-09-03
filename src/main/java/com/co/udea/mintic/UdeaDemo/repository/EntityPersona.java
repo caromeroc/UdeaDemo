@@ -1,8 +1,10 @@
 package com.co.udea.mintic.UdeaDemo.repository;
 
+import com.co.udea.mintic.UdeaDemo.util.EnumRol;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Data
 @Entity
@@ -22,5 +24,10 @@ public class EntityPersona {
     private String doc;
     @Column (name = "Password")
     private String password;
+    @Column (name = "rol")
+    @Enumerated (EnumType.STRING)
+    private EnumRol rol;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPersona")
+    private Collection<EntityPermisos> permisosCollection;
 
 }
