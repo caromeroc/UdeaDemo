@@ -16,8 +16,8 @@ import java.util.ArrayList;
 
 @Api (tags = "Persona", description = "Metodos para el Api Persona")
 @RestController
+@CrossOrigin
 @RequestMapping (value = "/persona")
-
 public class ControllerPersona {
 
 
