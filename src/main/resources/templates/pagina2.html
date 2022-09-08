@@ -1,17 +1,39 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <title>App Personas</title>
 </head>
 <body>
+<main>
+    <div class="px-4 py-5 my-5 text-center">
+        <h1 class="display-5 fw-bold mb-2"> Lista </h1>
+        <div class="d-flex gap-4 justify-content-center">
 
-<h4>Hola Soy la Pagina 2</h4>
+            <div th:each="itemP : ${personas}"   class="card" style="width: 18rem;">
 
-<a href="/">Ir a Home</a>
+                <div th:switch = "${itemP.rol.name}">
+                    <img th:case="'ADMIN'" src="img/woman.png" width="80%" class="my-4 mx-4" alt="...">
+                    <img th:case="'USER'" src="img/man.png" width="80%" class="my-4 mx-4" alt="...">
+                    <img th:case="'VISITANTE'" src="img/worker.png" width="80%" class="my-4 mx-4" alt="...">
+                </div>
+                <div class="card-body">
+                    <h5 th:text = "${itemP.nombre} + '  ' + ${itemP.apellido}" class="card-title"></h5>
+                   <p>Edad : </p> <p th:text = "${itemP.edad}" class="card-text"></p>
+                    <br/>
+                    <p>Documento : </p> <p th:text = "${itemP.doc}" class="card-text"></p>
+                </div>
+            </div>
 
+        </div>
+    </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 </body>
 </html>
