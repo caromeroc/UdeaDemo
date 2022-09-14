@@ -25,6 +25,8 @@ public class EntityPermisos {
     @ManyToOne (optional = false)
     private EntityPersona idPersona;
 
+    public EntityPermisos() {
+    }
 
     public EntityPermisos(Boolean lectura, Boolean escritura, Boolean actualizar, Boolean borrar, EntityPersona idPersona) {
         this.lectura = lectura;

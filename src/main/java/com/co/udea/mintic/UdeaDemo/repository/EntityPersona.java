@@ -1,6 +1,7 @@
 package com.co.udea.mintic.UdeaDemo.repository;
 
 import com.co.udea.mintic.UdeaDemo.util.EnumRol;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -28,6 +29,7 @@ public class EntityPersona {
     @Enumerated (EnumType.STRING)
     private EnumRol rol;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPersona")
+    @JsonIgnore
     private Collection<EntityPermisos> permisosCollection;
 
 }
