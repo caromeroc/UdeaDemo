@@ -24,10 +24,21 @@
                 </div>
                 <div class="card-body">
                     <h5 th:text = "${itemP.nombre} + '  ' + ${itemP.apellido}" class="card-title"></h5>
-                   <p>Edad : </p> <p th:text = "${itemP.edad}" class="card-text"></p>
-                    <br/>
-                    <p>Documento : </p> <p th:text = "${itemP.doc}" class="card-text"></p>
+                    <p th:text =  " 'Edad :  ' +  ${itemP.edad} + '  Años' " class="card-text"></p>
+                    <p th:text =  " 'Documento :  ' +  ${itemP.doc} " class="card-text"></p>
+                    <p th:text =  " 'Rol :  ' +  ${itemP.rol.name} " class="card-text"></p>
                 </div>
+                <div class=" gap-2">
+                    <form th:action="@{/persona/udea/mintic/borrarPersonaJPA/{id}(id=${itemP.id})}" th:method="delete">
+                        <button class="btn btn-danger" type="submit">Eliminar</button>
+                    </form>
+                </div>
+                <div>
+                    <form th:action="@{/editarPersona/{id}(id=${itemP.id})}" th:method="get">
+                        <button class="btn btn-success" type="submit">Editar</button>
+                    </form>
+                </div>
+
             </div>
 
         </div>
