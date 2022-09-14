@@ -190,7 +190,7 @@ public class ServicePersona {
         repositoryPersona.deleteById(id);
     }
 
-    public void insertarPersonaRol(EntityPersona persona){
+    public Boolean insertarPersonaRol(EntityPersona persona){
 
 
         if (persona.getRol().equals(EnumRol.ADMIN)){
@@ -208,9 +208,16 @@ public class ServicePersona {
             repositoryPermisos.save(ePerTmp);
         }else {
             System.err.println("No se pudo obtener e Rol");
-
+            return  Boolean.FALSE;
         }
+        return  Boolean.TRUE;
+    }
 
+    public EntityPersona buscarPersonaId (Long id){
+
+        EntityPersona perTemp =  repositoryPersona.findById(id).orElse(null);
+
+        return perTemp;
     }
 
 

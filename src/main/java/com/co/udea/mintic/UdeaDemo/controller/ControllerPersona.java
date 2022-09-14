@@ -11,13 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
+
 import java.util.ArrayList;
 
 @Api (tags = "Persona", description = "Metodos para el Api Persona")
 @RestController
+@CrossOrigin
 @RequestMapping (value = "/persona")
-
 public class ControllerPersona {
 
 
@@ -157,10 +160,16 @@ public class ControllerPersona {
 
     }
 
-    @PutMapping (path = "/udea/mintic/actualizarTodoJPA", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Boolean> actualizarTodoJPA (@RequestBody EntityPersona persona){
+    @PutMapping (path = "/udea/mintic/actualizarTodoJPA")
+    public RedirectView actualizarTodoJPA (@ModelAttribute EntityPersona persona, Model modelo){
 
-        return new ResponseEntity<Boolean> (servicePersona.actualizarTodoJPA(persona), HttpStatus.OK);
+        modelo.addAttribute(persona);
+        if (servicePersona.actualizarTodoJPA(persona).equals(Boolean.TRUE)){
+            return new RedirectView("/pagina2");
+        }else{
+
+            return new RedirectView("/error");
+        }
 
     }
 
@@ -171,14 +180,20 @@ public class ControllerPersona {
     }
 
     @DeleteMapping("/udea/mintic/borrarPersonaJPA/{id}")
-    public void borrarPersonaJPA(@PathVariable("id") Long id) {
+    public RedirectView borrarPersonaJPA(@PathVariable("id") Long id) {
         servicePersona.deletePersonaById(id);
+        return new RedirectView("/pagina2");
     }
 
-    @PostMapping (path = "/udea/mintic/insertarPersonaRol", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void insertarPersonaRol (@RequestBody EntityPersona persona){
+    @PostMapping (path = "/udea/mintic/insertarPersonaRol")
+    public RedirectView insertarPersonaRol (@ModelAttribute EntityPersona persona, Model modelo){
+        modelo.addAttribute(persona);
+        if (servicePersona.insertarPersonaRol (persona).equals(Boolean.TRUE)){
+            return new RedirectView("/pagina2");
+        }else{
 
-        servicePersona.insertarPersonaRol (persona);
+            return new RedirectView("/error");
+        }
 
     }
 
