@@ -24,6 +24,20 @@ public class ControllerFrontEnd {
         return "index";
     }
 
+    @GetMapping (path = "/dashboard")
+    public String dashboard(Model model, @AuthenticationPrincipal OidcUser principal){
+
+        if(principal != null){
+
+            model.addAttribute("nombre", "Carlos");
+            model.addAttribute("apellido", "Romero");
+            model.addAttribute("hora", "21:14");
+
+            return "dashboard";
+        }
+        return "index";
+    }
+
     @GetMapping (path = "/pagina2")
     public String pagina2(Model modelo, @AuthenticationPrincipal OidcUser principal){
 
@@ -53,6 +67,17 @@ public class ControllerFrontEnd {
         modelo.addAttribute("Epersona", pTemp );
 
         return "editarPersona";
+
+    }
+
+
+    @GetMapping (path = "/editarPersonaParcial/{id}")
+    public String editarPersonaParcial (Model modelo, @PathVariable("id") Long id){
+
+        EntityPersona pTemp = servicePersona.buscarPersonaId(id);
+        modelo.addAttribute("Epersona", pTemp );
+
+        return "editarPersonaParcial";
 
     }
 

@@ -173,10 +173,18 @@ public class ControllerPersona {
 
     }
 
-    @PatchMapping (path = "/udea/mintic/actualizarParcialJPA", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void insertarParcialJPA (@RequestBody EntityPersona persona){
+    @PatchMapping (path = "/udea/mintic/actualizarParcialJPA")
+    public RedirectView insertarParcialJPA (@ModelAttribute EntityPersona persona, Model modelo){
 
-        servicePersona.actualizarParcialJPA(persona);
+        modelo.addAttribute(persona);
+        if (servicePersona.actualizarParcialJPA(persona).equals(Boolean.TRUE)){
+            return new RedirectView("/pagina2");
+        }else{
+
+            return new RedirectView("/error");
+        }
+
+
     }
 
     @DeleteMapping("/udea/mintic/borrarPersonaJPA/{id}")
